@@ -113,7 +113,7 @@ const urlLoaderServer = {
 };
 
 const fileLoaderClient = {
-    exclude: [/\.(js|jsx|ts|tsx|css|html|json)$/],
+    exclude: [/\.(js|jsx|ts|tsx|css|html|ejs|json)$/],
     use: [
         {
             loader: require.resolve('file-loader'),
@@ -125,7 +125,7 @@ const fileLoaderClient = {
 };
 
 const fileLoaderServer = {
-    exclude: [/\.(js|jsx|ts|tsx|css|html|json)$/],
+    exclude: [/\.(js|jsx|ts|tsx|css|html|ejs|json)$/],
     use: [
         {
             loader: require.resolve('file-loader'),
