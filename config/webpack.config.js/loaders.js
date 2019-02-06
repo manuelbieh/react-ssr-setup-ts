@@ -5,7 +5,7 @@ const cssRegex = /\.css$/;
 const cssModuleRegex = /\.module\.css$/;
 
 const babelLoader = {
-    test: /\.(js|jsx|mjs)$/,
+    test: /\.(js|jsx|mjs|ts|tsx)$/,
     exclude: /node_modules/,
     loader: require.resolve('babel-loader'),
     options: {
@@ -21,6 +21,9 @@ const babelLoader = {
                 },
             ],
         ],
+        cacheDirectory: true,
+        cacheCompression: process.env.NODE_ENV === 'production',
+        compact: process.env.NODE_ENV === 'production',
     },
 };
 
@@ -110,7 +113,7 @@ const urlLoaderServer = {
 };
 
 const fileLoaderClient = {
-    exclude: [/\.(js|css|mjs|html|json)$/],
+    exclude: [/\.(js|jsx|ts|tsx|css|html|json)$/],
     use: [
         {
             loader: require.resolve('file-loader'),
@@ -122,7 +125,7 @@ const fileLoaderClient = {
 };
 
 const fileLoaderServer = {
-    exclude: [/\.(js|css|mjs|html|json)$/],
+    exclude: [/\.(js|jsx|ts|tsx|css|html|json)$/],
     use: [
         {
             loader: require.resolve('file-loader'),

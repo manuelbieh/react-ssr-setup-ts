@@ -1,12 +1,17 @@
 const paths = require('./config/paths');
 
 module.exports = {
+    parser: 'pluggable-babel-eslint',
+    parserOptions: {
+        plugins: ['typescript'],
+        ecmaVersion: 2018,
+        sourceType: 'module',
+    },
     extends: [
         'wiremore',
         'wiremore/react',
         'prettier',
         'prettier/react',
-        'plugin:flowtype/recommended',
         'plugin:import/errors',
         'plugin:import/warnings',
         'plugin:prettier/recommended',
@@ -16,11 +21,12 @@ module.exports = {
         __BROWSER__: true,
         __SERVER__: true,
     },
-    plugins: ['babel', 'import', 'prettier', 'flowtype', 'security'],
+    plugins: ['babel', 'import', 'prettier', 'security'],
     settings: {
         'import/resolver': {
             node: {
                 paths: paths.resolveModules,
+                extensions: ['.js', '.jsx', '.ts', '.tsx'],
             },
         },
     },

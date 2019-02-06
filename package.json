@@ -11,23 +11,15 @@
     "analyze": "yarn build:with-stats && yarn start:analyzer",
     "build": "cross-env NODE_ENV=production node scripts/build.js",
     "build:with-stats": "cross-env NODE_ENV=production webpack --config config/webpack.config.js/client.prod.js --json > build/client/static/bundle-stats.json",
-    "lint": "eslint ./src",
+    "lint": "concurrently \"yarn-or-npm lint:js\" \"yarn-or-npm lint:css\"",
+    "lint:js": "eslint ./src",
+    "lint:css": "stylelint ./src/**/*.css",
     "plop": "plop",
     "setup": "yarn link react react-dom",
     "start": "cross-env NODE_ENV=development node scripts/start.js",
     "start:analyzer": "webpack-bundle-analyzer build/client/static/bundle-stats.json",
     "test": "node scripts/test.js --env=jsdom",
     "test:update": "yarn test --updateSnapshot"
-  },
-  "lint-staged": {
-    "*.{js,css}": [
-      "prettier --write",
-      "git add"
-    ],
-    "*.js": [
-      "eslint src --fix",
-      "git add"
-    ]
   },
   "moduleRoots": [
     "src/client",
@@ -70,14 +62,23 @@
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-flow": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.1.0",
     "@babel/register": "^7.0.0",
     "@svgr/webpack": "^4.1.0",
+    "@types/axios": "^0.14.0",
+    "@types/react": "^16.8.1",
+    "@types/react-helmet": "^5.0.8",
+    "@types/react-i18next": "^8.1.0",
+    "@types/react-redux": "^7.0.1",
+    "@types/react-router": "^4.4.3",
+    "@types/react-router-dom": "^4.3.1",
     "autoprefixer": "^9.4.7",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.0.0",
     "babel-loader": "^8.0.5",
     "babel-plugin-named-asset-import": "^0.3.0",
     "case-sensitive-paths-webpack-plugin": "^2.2.0",
+    "concurrently": "^4.1.0",
     "cross-env": "^5.2.0",
     "css-hot-loader": "^1.4.3",
     "css-loader": "^2.1.0",
@@ -104,6 +105,7 @@
     "nodemon": "^1.18.9",
     "opn-cli": "^4.0.0",
     "plop": "^2.2.0",
+    "pluggable-babel-eslint": "^0.3.0",
     "postcss-assets": "^5.0.0",
     "postcss-custom-properties": "^8.0.9",
     "postcss-flexbugs-fixes": "^4.1.0",
@@ -118,6 +120,11 @@
     "regenerator-runtime": "^0.13.1",
     "rimraf": "^2.6.3",
     "stats-webpack-plugin": "^0.7.0",
+    "stylelint": "^9.10.1",
+    "stylelint-config-prettier": "^4.0.0",
+    "stylelint-order": "^2.0.0",
+    "stylelint-prettier": "^1.0.6",
+    "typescript": "^3.3.1",
     "url-loader": "^1.1.2",
     "webpack": "^4.29.0",
     "webpack-bundle-analyzer": "^3.0.3",
@@ -126,6 +133,7 @@
     "webpack-hot-middleware": "^2.24.3",
     "webpack-manifest-plugin": "^2.0.4",
     "webpack-node-externals": "^1.7.2",
-    "write-file-webpack-plugin": "^4.5.0"
+    "write-file-webpack-plugin": "^4.5.0",
+    "yarn-or-npm": "^2.0.4"
   }
 }

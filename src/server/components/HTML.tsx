@@ -1,13 +1,12 @@
-// @flow
 /* eslint-disable react/no-danger */
 import React from 'react';
 import Helmet from 'react-helmet';
 
 type PropsT = {
-    children: any,
-    css: string[],
-    scripts: string[],
-    state: string,
+    children: any;
+    css: string[];
+    scripts: string[];
+    state: string;
 };
 
 export default class HTML extends React.Component<PropsT> {

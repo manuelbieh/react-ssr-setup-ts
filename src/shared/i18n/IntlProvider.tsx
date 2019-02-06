@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import i18next from 'i18next';
 import { withRouter } from 'react-router-dom';
@@ -25,8 +24,8 @@ i18next.init({
 });
 
 type PropsT = {
-    children: any,
-    locale: 'en_US' | 'de_DE',
+    children: any;
+    locale: 'en_US' | 'de_DE';
 };
 
 class I18N extends React.PureComponent<PropsT> {
@@ -34,7 +33,7 @@ class I18N extends React.PureComponent<PropsT> {
         i18next.changeLanguage(this.props.locale);
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps: { locale: string }) {
         const { locale: newLocale } = this.props;
         const { locale: oldLocale } = prevProps;
 
@@ -48,11 +47,11 @@ class I18N extends React.PureComponent<PropsT> {
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
     locale: getLocale(state),
 });
 
-export default withRouter(
+export default withRouter<any>(
     connect(
         mapStateToProps,
         null,

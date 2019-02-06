@@ -1,10 +1,9 @@
-// @flow
 import * as React from 'react';
 import { withNamespaces } from 'react-i18next';
 import css from './Features.module.css';
 
 type PropsT = {
-    t: (string) => string,
+    t: (key: string) => string;
 };
 
 const Features = ({ t }: PropsT) => (
@@ -14,7 +13,7 @@ const Features = ({ t }: PropsT) => (
             <li className={css.hot}>Webpack 4</li>
             <li className={css.hot}>Babel 7</li>
             <li className={css.hot}>ESLint 5</li>
-            <li className={css.hot}>Flow Type</li>
+            <li className={css.hot}>TypeScript (using Babel 7)</li>
             <li className={css.hot}>Jest 24</li>
             <li className={css.react}>React 16.x (latest)</li>
             <li>React Router 4</li>
