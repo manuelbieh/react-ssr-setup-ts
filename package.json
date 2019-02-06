@@ -9,14 +9,13 @@
   },
   "scripts": {
     "analyze": "yarn build:with-stats && yarn start:analyzer",
-    "build": "cross-env NODE_ENV=production node scripts/build.js",
+    "build": "cross-env NODE_ENV=production node scripts/build.js --client-only",
     "build:with-stats": "cross-env NODE_ENV=production webpack --config config/webpack.config.js/client.prod.js --json > build/client/static/bundle-stats.json",
     "lint": "concurrently \"yarn-or-npm lint:js\" \"yarn-or-npm lint:css\"",
     "lint:js": "eslint ./src",
     "lint:css": "stylelint ./src/**/*.css",
     "plop": "plop",
-    "setup": "yarn link react react-dom",
-    "start": "cross-env NODE_ENV=development node scripts/start.js",
+    "start": "cross-env NODE_ENV=development node scripts/start.js --client-only",
     "start:analyzer": "webpack-bundle-analyzer build/client/static/bundle-stats.json",
     "test": "node scripts/test.js --env=jsdom",
     "test:update": "yarn test --updateSnapshot"
