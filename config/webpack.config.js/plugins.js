@@ -11,12 +11,14 @@ const env = require('../env')();
 const shared = [];
 
 const client = [
-    new CaseSensitivePathsPlugin(),
-    clientOnly() &&
+    // TODO: add client side only mode
+    clientOnly &&
         new HtmlWebpackPlugin({
             inject: true,
             template: paths.appHtml,
         }),
+    // new webpack.ProgressPlugin(), // make this optional e.g. via `--progress` flag
+    new CaseSensitivePathsPlugin(),
     new webpack.DefinePlugin(env.stringified),
     new webpack.DefinePlugin({
         __SERVER__: 'false',

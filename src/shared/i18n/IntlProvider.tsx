@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import i18next from 'i18next';
 import { withRouter } from 'react-router-dom';
 import { I18nextProvider } from 'react-i18next';
@@ -23,29 +23,20 @@ i18next.init({
     },
 });
 
-type PropsT = {
-    children: any;
+i18next.languages = ['de_DE', 'en_US'];
+
+type Props = {
+    children: React.ReactNode;
     locale: 'en_US' | 'de_DE';
 };
 
-class I18N extends React.PureComponent<PropsT> {
-    componentDidMount() {
-        i18next.changeLanguage(this.props.locale);
-    }
+const I18N = ({ children, locale }: Props) => {
+    useEffect(() => {
+        i18next.changeLanguage(locale);
+    }, [locale]);
 
-    componentDidUpdate(prevProps: { locale: string }) {
-        const { locale: newLocale } = this.props;
-        const { locale: oldLocale } = prevProps;
-
-        if (oldLocale !== newLocale) {
-            i18next.changeLanguage(newLocale);
-        }
-    }
-
-    render() {
-        return <I18nextProvider i18n={i18next}>{this.props.children}</I18nextProvider>;
-    }
-}
+    return <I18nextProvider i18n={i18next}>{children}</I18nextProvider>;
+};
 
 const mapStateToProps = (state: any) => ({
     locale: getLocale(state),
@@ -57,5 +48,5 @@ export default withRouter<any>(
         null,
         null,
         { pure: false }
-    )(I18N)
+    )(React.memo(I18N))
 );

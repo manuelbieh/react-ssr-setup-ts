@@ -1,5 +1,44 @@
 # Changelog
 
+## 2.9.0 (2019-04-28)
+
+-   Experimentally added dependency-cruiser
+-   Updated dependencies to their most recent versions
+
+## 2.8.0 (2019-04-09)
+
+-   Regular depdency update (noteworthy: react-redux v7!)
+
+## 2.7.0 (2019-04-03)
+
+-   Dropping @babel/polyfill in favor of core-js 3 since [@babel/polyfill is now deprecated](https://github.com/zloirock/core-js/blob/master/docs/2019-03-19-core-js-3-babel-and-a-look-into-the-future.md#babelpolyfill)
+-   Regular dependency update
+
+## 2.6.0 (2019-03-21)
+
+-   Updated dependencies. Noteworthy update: React Router v5!
+-   Using TerserPlugin for minification for more reliability
+-   Removed duplicate use of `postcss-custom-properties`
+-   Fixed a few issues with Plop and Plop templates
+-   Using `pretty-add` when adding new Plop generated files (still buggy)
+
+## 2.5.1 (2019-02-06)
+
+-   Added a stylelint warning for css shorthand properties which override no-shorthand properties
+-   Re-added ejs to `file-loader` exclusion list because it otherwise breaks HTMLWebpackPlugin
+-   Added `HOST` and `DEVSERVER_HOST` to use a different host than `http://localhost`
+
+## 2.5.0 (2019-02-06)
+
+-   Upgraded to React and ReactDOM 16.8.0 (with official Hooks support)
+
+## 2.4.0 (2019-02-05)
+
+-   Upgraded to immer 2.0.0
+-   Increased minimum required version for Node (now: >=8.11.3) and Yarn (now: 1.12.3) since earlier versions _might_ cause problems under certain circumstances
+-   Added `concurrently` for script concurrency and `yarn-or-npm`
+-   Added `stylelint` and a (yet) minimalistic stylelint config
+
 ## 2.3.0 (2019-02-01)
 
 -   Temporarily(?) dropped express-manifest-helpers dependency due to [unresolved security issue](https://github.com/danethurber/express-manifest-helpers/pull/4)

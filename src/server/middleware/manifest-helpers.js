@@ -5,6 +5,7 @@ https://github.com/danethurber/express-manifest-helpers/pull/4
 
 © Dane Thurber, Licensed under MIT
 */
+/* eslint-disable security/detect-non-literal-fs-filename, security/detect-object-injection, security/detect-unsafe-regex */
 
 import fs from 'fs';
 
@@ -12,7 +13,9 @@ let manifest;
 const options = {};
 
 const loadManifest = () => {
-    if (manifest && options.cache) return manifest;
+    if (manifest && options.cache) {
+        return manifest;
+    }
 
     try {
         return JSON.parse(fs.readFileSync(options.manifestPath, 'utf8'));
@@ -30,7 +33,9 @@ const mapAttrs = (attrs) => {
 export const lookup = (source) => {
     manifest = loadManifest();
 
-    if (manifest[source]) return options.prependPath + manifest[source];
+    if (manifest[source]) {
+        return options.prependPath + manifest[source];
+    }
     return '';
 };
 

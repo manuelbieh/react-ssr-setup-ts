@@ -1,33 +1,20 @@
 const paths = require('./config/paths');
 
 module.exports = {
-    parser: 'pluggable-babel-eslint',
-    parserOptions: {
-        plugins: ['typescript'],
-        ecmaVersion: 2018,
-        sourceType: 'module',
-    },
-    extends: [
-        'wiremore',
-        'wiremore/react',
-        'prettier',
-        'prettier/react',
-        'plugin:import/errors',
-        'plugin:import/warnings',
-        'plugin:prettier/recommended',
-        'plugin:security/recommended',
-    ],
+    extends: ['wiremore', 'wiremore/react', 'wiremore/typescript'],
     globals: {
         __BROWSER__: true,
         __SERVER__: true,
     },
-    plugins: ['babel', 'import', 'prettier', 'security'],
     settings: {
         'import/resolver': {
             node: {
                 paths: paths.resolveModules,
                 extensions: ['.js', '.jsx', '.ts', '.tsx'],
             },
+        },
+        react: {
+            version: 'detect',
         },
     },
     rules: {
@@ -36,20 +23,4 @@ module.exports = {
         'import/no-named-as-default-member': 0,
         'prettier/prettier': 'error',
     },
-    overrides: [
-        {
-            files: ['**/*.ts', '**/*.tsx'],
-            rules: {
-                'no-undef': 0,
-                'no-unused-vars': 0,
-            },
-        },
-        {
-            files: ['**/*.d.ts'],
-            rules: {
-                'import/export': 0,
-                'no-redeclare': 0,
-            },
-        },
-    ],
 };

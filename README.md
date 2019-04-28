@@ -1,9 +1,13 @@
-# ⚛ React + Express – SSR Setup - TypeScript Edition
+# ⚛ React + Express – SSR Setup – TypeScript Edition
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/085d871cd62fe4435865/maintainability)](https://codeclimate.com/github/manuelbieh/react-ssr-setup-ts/maintainability)
-[![dependencies Status](https://david-dm.org/manuelbieh/react-ssr-setup-ts/status.svg)](https://david-dm.org/manuelbieh/react-ssr-setup-ts)
-[![Known Vulnerabilities](https://snyk.io/test/github/manuelbieh/react-ssr-setup-ts/badge.svg)](https://snyk.io/test/github/manuelbieh/react-ssr-setup-ts)
+[![Maintainability](https://api.codeclimate.com/v1/badges/085d871cd62fe4435865/maintainability)](https://codeclimate.com/github/manuelbieh/react-ssr-setup/maintainability)
+[![dependencies Status](https://david-dm.org/manuelbieh/react-ssr-setup/status.svg)](https://david-dm.org/manuelbieh/react-ssr-setup)
+[![Known Vulnerabilities](https://snyk.io/test/github/manuelbieh/react-ssr-setup/badge.svg)](https://snyk.io/test/github/manuelbieh/react-ssr-setup)
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+
+**Advertising**: I wrote a book about React. If you speak German, buy it here: [https://leanpub.com/react-lernen](https://leanpub.com/react-lernen)!
+
+[![](./src/shared/assets/book-cover-small.png)](https://leanpub.com/react-lernen)
 
 ## TOC
 
@@ -46,13 +50,12 @@ This project has out-of-the-box support for the following things:
 
 -   General Setup
     -   🔥 Babel 7
-    -   🔥 TypeScript (using Babel 7)
     -   🔥 Webpack 4
     -   🔥 ESLint 5 (with a set of custom rules which may be mostly identical to AirBnB with some personal flavor added)
     -   🔥 Flow Type
     -   🔥 Prettier
     -   🔥 Jest 24
-    -   ✅ Server side prerendering with Express
+    -   ✅ Server Side Rendering with Express
     -   ✅ Hot Module Reloading (HMR)
     -   ✅ CSS Modules
     -   ✅ PostCSS
@@ -61,11 +64,11 @@ This project has out-of-the-box support for the following things:
     -   📕 Support for [Storybook](https://storybook.js.org/) (>= 4.0.0)
 
 *   Libs and Dependencies
-    -   ⚛ React 16.x (latest)
+    -   ⚛ React 16.x (latest), with Hooks!
     -   ✅ Redux + Thunk middleware
     -   ✅ Immer
     -   ✅ Reselect
-    -   ✅ React Router 4
+    -   ✅ React Router 5
     -   ✅ React i18next for multi language support
     -   ✅ React Helmet
 
@@ -102,6 +105,16 @@ Update all Jest snapshots (if there are any)
 #### `yarn plop`
 
 Run plop to create new React components or Redux reducers via CLI
+
+## Environment Variables
+
+There are a few environment variables you can set to adjust the setup to your needs
+
+| Variable         | Default            | Description                                                                                                                                                                                                                                                                                      |
+| ---------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `PORT`           | `8500`             | Port number your application will be served on.                                                                                                                                                                                                                                                  |
+| `HOST`           | `http://localhost` | Host (including protocol!) your application will be served on. This is usually neglectable as most of the time your application will be served via remote proxy (e.g. Nginx) on localhost. **Note:** this is only for convenience. The server itself will not be bound exclusively to that host. |
+| `DEVSERVER_HOST` | `http://localhost` | Optional. Different host for the Webpack Dev Server to be served on.                                                                                                                                                                                                                             |
 
 ## Tricks
 

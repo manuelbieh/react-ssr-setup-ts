@@ -1,11 +1,12 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const generateSourceMap = process.env.OMIT_SOURCEMAP === 'true' ? false : true;
+const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent');
 
 const cssRegex = /\.css$/;
 const cssModuleRegex = /\.module\.css$/;
 
 const babelLoader = {
-    test: /\.(js|jsx|mjs|ts|tsx)$/,
+    test: /\.(js|jsx|ts|tsx|mjs)$/,
     exclude: /node_modules/,
     loader: require.resolve('babel-loader'),
     options: {
@@ -39,7 +40,8 @@ const cssModuleLoaderClient = {
                 modules: true,
                 importLoaders: 1,
                 sourceMap: generateSourceMap,
-                localIdentName: '[name]__[local]--[hash:base64:5]',
+                // localIdentName: '[name]__[local]--[hash:base64:5]',
+                getLocalIdent: getCSSModuleLocalIdent,
             },
         },
         {
@@ -77,7 +79,8 @@ const cssModuleLoaderServer = {
                 camelCase: true,
                 importLoaders: 1,
                 modules: true,
-                localIdentName: '[name]__[local]--[hash:base64:5]',
+                // localIdentName: '[name]__[local]--[hash:base64:5]',
+                getLocalIdent: getCSSModuleLocalIdent,
             },
         },
         {
@@ -92,7 +95,7 @@ const cssModuleLoaderServer = {
 const cssLoaderServer = {
     test: cssRegex,
     exclude: cssModuleRegex,
-    loader: require.resolve('css-loader'),
+    use: [MiniCssExtractPlugin.loader, require.resolve('css-loader')],
 };
 
 const urlLoaderClient = {
@@ -113,7 +116,7 @@ const urlLoaderServer = {
 };
 
 const fileLoaderClient = {
-    exclude: [/\.(js|jsx|ts|tsx|css|html|ejs|json)$/],
+    exclude: [/\.(js|jsx|ts|tsx|css|mjs|html|ejs|json)$/],
     use: [
         {
             loader: require.resolve('file-loader'),
@@ -125,7 +128,7 @@ const fileLoaderClient = {
 };
 
 const fileLoaderServer = {
-    exclude: [/\.(js|jsx|ts|tsx|css|html|ejs|json)$/],
+    exclude: [/\.(js|tsx|ts|tsx|css|mjs|html|ejs|json)$/],
     use: [
         {
             loader: require.resolve('file-loader'),

@@ -4,8 +4,8 @@ import { renderToString } from 'react-dom/server';
 import { StaticRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import IntlProvider from '../shared/i18n/IntlProvider';
-import Html from './components/HTML';
 import App from '../shared/App';
+import Html from './components/HTML';
 
 const serverRenderer: any = () => (
     req: express.Request & { store: any },

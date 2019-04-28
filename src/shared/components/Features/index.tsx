@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { withNamespaces } from 'react-i18next';
+import { withTranslation, WithTranslation } from 'react-i18next';
 import css from './Features.module.css';
 
-type PropsT = {
+type Props = {
     t: (key: string) => string;
 };
 
-const Features = ({ t }: PropsT) => (
+const Features = ({ t }: WithTranslation) => (
     <>
         <h2>{t('features')}</h2>
         <ul className={css.wrapper}>
@@ -31,4 +31,4 @@ const Features = ({ t }: PropsT) => (
     </>
 );
 
-export default withNamespaces()(Features);
+export default withTranslation()(Features);
