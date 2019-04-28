@@ -1,6 +1,7 @@
-/// <reference types="node" />
-/// <reference types="react" />
-/// <reference types="react-dom" />
+///<reference types="node" />
+///<reference types="react" />
+///<reference types="react-dom" />
+///<reference types="webpack-env" />
 
 declare namespace NodeJS {
     interface ProcessEnv {
@@ -49,6 +50,14 @@ declare module '*.svg' {
 }
 
 declare module '*.module.css' {
-    const classes: { [key: string]: string };
-    export default classes;
+    const css: { [key: string]: string };
+    export default css;
+}
+
+declare const __BROWSER__: string;
+declare const __SERVER__: string;
+
+interface Window {
+    browserHistory: any;
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
 }

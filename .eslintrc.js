@@ -36,4 +36,20 @@ module.exports = {
         'import/no-named-as-default-member': 0,
         'prettier/prettier': 'error',
     },
+    overrides: [
+        {
+            files: ['**/*.ts', '**/*.tsx'],
+            rules: {
+                'no-undef': 0,
+                'no-unused-vars': 0,
+            },
+        },
+        {
+            files: ['**/*.d.ts'],
+            rules: {
+                'import/export': 0,
+                'no-redeclare': 0,
+            },
+        },
+    ],
 };
