@@ -2,14 +2,14 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 
-type PropsT = {
+type Props = {
     children: any;
     css: string[];
     scripts: string[];
     state: string;
 };
 
-export default class HTML extends React.Component<PropsT> {
+export default class HTML extends React.Component<Props> {
     static defaultProps = {
         css: [],
         scripts: [],

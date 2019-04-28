@@ -8,7 +8,7 @@ module.exports = {
     name: 'client',
     target: 'web',
     entry: {
-        bundle: [require.resolve('@babel/polyfill'), `${paths.srcClient}/index.js`],
+        bundle: [require.resolve('@babel/polyfill'), paths.srcClient],
     },
     output: {
         path: path.join(paths.clientBuild, paths.publicPath),
