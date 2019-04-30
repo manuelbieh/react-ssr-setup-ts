@@ -9,28 +9,56 @@ import bodyParser from 'body-parser';
 import { configureStore } from '../shared/store';
 import serverRender from './render';
 import paths from '../../config/paths';
+import { ErrorRequestHandler, Handler, RequestHandler, Request } from 'express-serve-static-core';
+import { Store } from 'redux';
 
 require('dotenv').config();
 
 const app = express();
 
+interface RequestWithStore extends Request {
+    store?: Store;
+}
+
+const errorHandler: ErrorRequestHandler = (err, _, res) =>
+    res.status(404).json({
+        status: 'error',
+        message: err.message,
+        stack:
+            // print a nicer stack trace by splitting line breaks and making them array items
+            process.env.NODE_ENV === 'development' &&
+            (err.stack || '')
+                .split('\n')
+                .map((line: string) => line.trim())
+                .map((line: string) => line.split(path.sep).join('/'))
+                .map((line: string) =>
+                    line.replace(
+                        process
+                            .cwd()
+                            .split(path.sep)
+                            .join('/'),
+                        '.'
+                    )
+                ),
+    });
+
 // Use Nginx or Apache to serve static assets in production or remove the if() around the following
 // lines to use the express.static middleware to serve assets for production (not recommended!)
 if (process.env.NODE_ENV === 'development') {
     app.use(paths.publicPath, express.static(path.join(paths.clientBuild, paths.publicPath)));
-    app.use('/favicon.ico', (req: express.Request, res: express.Response) => {
-        res.send('');
-    });
+    app.use('/favicon.ico', (_, res) => res.send(''));
 }
 
 app.use(cors());
 
 app.use(bodyParser.json());
 
-app.use((req: any, res: express.Response, next: express.NextFunction) => {
+const addStore: RequestHandler = (req: RequestWithStore, res, next) => {
     req.store = configureStore();
     return next();
-});
+};
+
+app.use(addStore);
 
 const manifestPath = path.join(paths.clientBuild, paths.publicPath);
 
@@ -42,29 +70,7 @@ app.use(
 
 app.use(serverRender());
 
-// eslint-disable-next-line no-unused-vars
-app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
-    return res.status(404).json({
-        status: 'error',
-        message: err.message,
-        stack:
-            // print a nicer stack trace by splitting line breaks and making them array items
-            process.env.NODE_ENV === 'development' &&
-            (err.stack || '')
-                .split('\n')
-                .map((line) => line.trim())
-                .map((line) => line.split(path.sep).join('/'))
-                .map((line) =>
-                    line.replace(
-                        process
-                            .cwd()
-                            .split(path.sep)
-                            .join('/'),
-                        '.'
-                    )
-                ),
-    });
-});
+app.use(errorHandler);
 
 app.listen(process.env.PORT || 8500, () => {
     console.log(
