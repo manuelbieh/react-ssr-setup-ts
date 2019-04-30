@@ -4933,6 +4933,13 @@ expect@^24.7.1:
     jest-message-util "^24.7.1"
     jest-regex-util "^24.3.0"
 
+express-manifest-helpers@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/express-manifest-helpers/-/express-manifest-helpers-0.6.0.tgz#72b81b2e5a0d2b4c43361d66def0c04433fd4a98"
+  integrity sha512-7dNT/3EheMBRVQO/RvMRGBwn4hYzxzUAqWnqMTWl17bvZVHjRInZhQQ1qowpGWb+RzokOcEeMkuvZAZeo42v9w==
+  dependencies:
+    lodash "^4.17.10"
+
 express@^4.16.3, express@^4.16.4:
   version "4.16.4"
   resolved "https://registry.yarnpkg.com/express/-/express-4.16.4.tgz#fddef61926109e24c515ea97fd2f1bdbf62df12e"

@@ -3,11 +3,11 @@ import path from 'path';
 import express from 'express';
 import cors from 'cors';
 import chalk from 'chalk';
-// import manifestHelpers from 'express-manifest-helpers';
+import manifestHelpers from 'express-manifest-helpers';
 import bodyParser from 'body-parser';
 import { configureStore } from '../shared/store';
 import paths from '../../config/paths';
-import manifestHelpers from './middleware/manifest-helpers';
+// import manifestHelpers from './middleware/manifest-helpers';
 import serverRender from './render';
 
 require('dotenv').config();
