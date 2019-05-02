@@ -1,4 +1,4 @@
-// const path = require('path');
+const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 
 const paths = require('../paths');
@@ -10,7 +10,12 @@ module.exports = {
     name: 'server',
     target: 'node',
     entry: {
-        server: [require.resolve('@babel/polyfill'), paths.srcServer],
+        // server: [path.resolve(paths.srcServer, 'index.js')],
+        server: [
+            require.resolve('core-js/stable'),
+            require.resolve('regenerator-runtime/runtime'),
+            path.resolve(paths.srcServer, 'index.ts'),
+        ],
     },
     externals: [
         nodeExternals({

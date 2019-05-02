@@ -1,8 +1,3 @@
-///<reference types="node" />
-///<reference types="react" />
-///<reference types="react-dom" />
-///<reference types="webpack-env" />
-
 declare namespace NodeJS {
     interface ProcessEnv {
         NODE_ENV: 'development' | 'production' | 'test';
@@ -63,3 +58,5 @@ interface Window {
     __PRELOADED_STATE__: any;
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
 }
+
+declare module 'express-manifest-helpers';

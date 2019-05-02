@@ -1,25 +1,23 @@
-const webpack = require('webpack');
-const rimraf = require('rimraf');
-const express = require('express');
 const path = require('path');
-const webpackConfig = require('../config/webpack.config.js')(process.env.NODE_ENV || 'development');
+const webpack = require('webpack');
+const express = require('express');
+const chalk = require('chalk');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
+const webpackConfig = require('../config/webpack.config.js')(process.env.NODE_ENV || 'development');
 const paths = require('../config/paths');
-const { compilerPromise, logMessage } = require('./utils');
+const { logMessage, compilerPromise } = require('./utils');
 
 const app = express();
 
 const PORT = process.env.PORT || 8500;
 
+const DEVSERVER_HOST = process.env.DEVSERVER_HOST || 'http://localhost';
+
 const start = async () => {
-    rimraf.sync(paths.clientBuild);
-    rimraf.sync(paths.serverBuild);
-
     const [clientConfig] = webpackConfig;
-
     clientConfig.entry.bundle = [
-        `webpack-hot-middleware/client?path=http://localhost:${PORT}/__webpack_hmr`,
+        `webpack-hot-middleware/client?path=${DEVSERVER_HOST}:${PORT}/__webpack_hmr`,
         ...clientConfig.entry.bundle,
     ];
 
@@ -27,7 +25,6 @@ const start = async () => {
     clientConfig.output.hotUpdateChunkFilename = 'updates/[id].[hash].hot-update.js';
 
     const webpackCompiler = webpack([clientConfig]);
-
     const clientCompiler = webpackCompiler.compilers.find((compiler) => compiler.name === 'client');
     const clientPromise = compilerPromise('client', clientCompiler);
 
@@ -53,11 +50,19 @@ const start = async () => {
 
     app.use('/', express.static(path.join(paths.clientBuild, paths.publicPath)));
 
-    app.listen(PORT);
-
+    // wait until client and server is compiled
     try {
         await clientPromise;
-        logMessage(`Dev Server is running: 🌎 http://localhost:${PORT}`, 'info');
+
+        app.listen(PORT, () => {
+            console.log(
+                `[${new Date().toISOString()}]`,
+                chalk.blue(
+                    `App is running: 🌎 ${process.env.HOST || 'http://localhost'}:${process.env
+                        .PORT || 8500}`
+                )
+            );
+        });
     } catch (error) {
         logMessage(error, 'error');
     }

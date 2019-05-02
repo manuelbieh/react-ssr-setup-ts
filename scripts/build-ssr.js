@@ -1,19 +1,19 @@
 const webpack = require('webpack');
 const rimraf = require('rimraf');
-
+const { choosePort } = require('react-dev-utils/WebpackDevServerUtils');
 const webpackConfig = require('../config/webpack.config.js')(process.env.NODE_ENV || 'production');
 const paths = require('../config/paths');
 const { logMessage, compilerPromise, sleep } = require('./utils');
 
-const { choosePort } = require('react-dev-utils/WebpackDevServerUtils');
+const HOST = process.env.HOST || 'http://localhost';
 
 const generateStaticHTML = async () => {
     const nodemon = require('nodemon');
     const fs = require('fs');
     const puppeteer = require('puppeteer');
-    const port = await choosePort('localhost', 8505);
+    const PORT = await choosePort('localhost', 8505);
 
-    process.env.PORT = port;
+    process.env.PORT = PORT;
 
     const script = nodemon({
         script: `${paths.serverBuild}/server.js`,
@@ -22,10 +22,11 @@ const generateStaticHTML = async () => {
 
     script.on('start', async () => {
         try {
+            // TODO: add try/wait/retry here instead of just generally waiting for 2000 ms
             await sleep(2000);
             const browser = await puppeteer.launch();
             const page = await browser.newPage();
-            await page.goto(`http://localhost:${port}`);
+            await page.goto(`${HOST}:${PORT}`);
             const pageContent = await page.content();
             fs.writeFileSync(`${paths.clientBuild}/index.html`, pageContent);
             await browser.close();

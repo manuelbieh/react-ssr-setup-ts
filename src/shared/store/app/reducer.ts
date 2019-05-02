@@ -1,6 +1,4 @@
-// @flow
 import { produce } from 'immer';
-// import { ActionT, AppT } from './types';
 import { ActionTypes } from './actions';
 
 type GenericActionT = { type: string; payload: any };

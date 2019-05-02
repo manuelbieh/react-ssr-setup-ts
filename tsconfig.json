@@ -16,7 +16,7 @@
     "baseUrl": "./src",
     "strictNullChecks": true,
     "paths": {
-      "*": ["shared/*", "client/*", "server/*", "*"]
+      "*": ["shared/*", "client/*", "server/*", "*", "node_modules/*"]
     }
   },
   "include": ["src"]
