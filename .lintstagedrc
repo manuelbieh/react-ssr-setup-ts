@@ -5,7 +5,7 @@
       "git add"
     ],
     "*.{js,jsx,ts,tsx}": [
-      "eslint src --fix",
+      "yarn lint:js --fix",
       "git add"
     ],
     "*.css": [

@@ -5,10 +5,11 @@ import cors from 'cors';
 import chalk from 'chalk';
 import manifestHelpers from 'express-manifest-helpers';
 import bodyParser from 'body-parser';
+import { Store } from 'redux';
 import { configureStore } from '../shared/store';
 import paths from '../../config/paths';
-// import manifestHelpers from './middleware/manifest-helpers';
-import serverRender from './render';
+import errorHandler from './middleware/errorHandler';
+import serverRenderer from './middleware/serverRenderer';
 
 require('dotenv').config();
 
@@ -18,19 +19,31 @@ const app = express();
 // lines to use the express.static middleware to serve assets for production (not recommended!)
 if (process.env.NODE_ENV === 'development') {
     app.use(paths.publicPath, express.static(path.join(paths.clientBuild, paths.publicPath)));
-    app.use('/favicon.ico', (req: express.Request, res: express.Response) => {
-        res.send('');
-    });
+    app.use('/favicon.ico', (_req: express.Request, res: express.Response) => res.send(''));
 }
 
 app.use(cors());
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use((req: any, res: express.Response, next: express.NextFunction) => {
-    req.store = configureStore();
-    return next();
-});
+type ResponseWithStore = express.Response & {
+    store: Store;
+};
+
+const addStore = (
+    _req: express.Request,
+    res: ResponseWithStore | express.Response,
+    next: express.NextFunction | undefined
+): void => {
+    res.locals.store = configureStore();
+    if (typeof next !== 'function') {
+        throw new Error('Next handler is missing');
+    }
+    next();
+};
+
+app.use(addStore);
 
 const manifestPath = path.join(paths.clientBuild, paths.publicPath);
 
@@ -40,31 +53,9 @@ app.use(
     })
 );
 
-app.use(serverRender());
+app.use(serverRenderer());
 
-// eslint-disable-next-line no-unused-vars
-app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
-    return res.status(404).json({
-        status: 'error',
-        message: err.message,
-        stack:
-            // print a nicer stack trace by splitting line breaks and making them array items
-            process.env.NODE_ENV === 'development' &&
-            (err.stack || '')
-                .split('\n')
-                .map((line) => line.trim())
-                .map((line) => line.split(path.sep).join('/'))
-                .map((line) =>
-                    line.replace(
-                        process
-                            .cwd()
-                            .split(path.sep)
-                            .join('/'),
-                        '.'
-                    )
-                ),
-    });
-});
+app.use(errorHandler);
 
 app.listen(process.env.PORT || 8500, () => {
     console.log(
