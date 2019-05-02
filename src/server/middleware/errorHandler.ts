@@ -1,7 +1,7 @@
 import path from 'path';
-import { ErrorRequestHandler } from 'express-serve-static-core';
+import { Response } from 'express';
 
-const errorHandler: ErrorRequestHandler = (err, _req, res, _next) =>
+const errorHandler = (err: Error, _req: any, res: Response, _next: any) =>
     res.status(404).json({
         status: 'error',
         message: err.message,

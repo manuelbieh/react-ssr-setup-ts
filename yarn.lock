@@ -4599,10 +4599,10 @@ eslint-config-prettier@^4.2.0:
   dependencies:
     get-stdin "^6.0.0"
 
-eslint-config-wiremore@^3.0.0-beta.4:
-  version "3.0.0-beta.4"
-  resolved "https://registry.yarnpkg.com/eslint-config-wiremore/-/eslint-config-wiremore-3.0.0-beta.4.tgz#6bcb3f9ce3429bdd1bc3124bccde1740ac4b988b"
-  integrity sha512-5+fs2u0UmaonQLzHiSwW5ZGXtinPaHMhzOoT12p+AUdHCA623EC7wJ+mXzfModD1SqSCXrFopNRqGTYU34fjbA==
+eslint-config-wiremore@^3.0.0-beta.6:
+  version "3.0.0-beta.6"
+  resolved "https://registry.yarnpkg.com/eslint-config-wiremore/-/eslint-config-wiremore-3.0.0-beta.6.tgz#521c4aa1517537ec66809afeb0849033b799aab3"
+  integrity sha512-66c8C/g13McRX1U2JKkY7zRwysIQqxelUsChgT6lpfGvLqoxBQJHCEhBxH8F02tgaSYsbtgeArxizB2aKlER6w==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^1.7.0"
     "@typescript-eslint/parser" "^1.7.0"
@@ -4948,11 +4948,6 @@ express-manifest-helpers@^0.6.0:
   integrity sha512-7dNT/3EheMBRVQO/RvMRGBwn4hYzxzUAqWnqMTWl17bvZVHjRInZhQQ1qowpGWb+RzokOcEeMkuvZAZeo42v9w==
   dependencies:
     lodash "^4.17.10"
-
-express-serve-static-core@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/express-serve-static-core/-/express-serve-static-core-0.1.1.tgz#222358112a79bc9fbe00838232e8cd2e3132ef37"
-  integrity sha1-IiNYESp5vJ++AIOCMujNLjEy7zc=
 
 express@^4.16.3, express@^4.16.4:
   version "4.16.4"
