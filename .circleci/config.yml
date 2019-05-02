@@ -25,3 +25,5 @@ jobs:
 
       # run tests!
       - run: yarn lint:js
+
+      - run: yarn tsc
